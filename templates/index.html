@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block head %}
+<h1 style="text-align: center"> 
+  ORGANIZER
+</h1>
+{% endblock %}
+
+
+{% block body %}
+<div class="content">
+  <p style="text-align: center">(c) JdR, 2024</p>
+  {% if tasks|length == 0 %}
+    <h4 style="text-align: center">There are no tasks! Please create one below.</h4>
+  {% else %}
+  <table  style="margin: 0px auto;">
+    <tr>
+       <th>Task</th>
+       <th>Added</th>
+       <th>Action</th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+       <td>{{ task.content }}</td>
+       <td>{{ task.date_created.date() }}</td>
+       <td>
+         <a href="/delete/{{ task.id }}">Delete</a>
+         <br>
+         <a href="/update/{{ task.id }}">Update</a>
+        </td>
+    </tr>
+    {% endfor %} 
+  </table>
+  {% endif %} 
+    
+  <form style="text-align: center" class="center" action="/" method = "POST">
+      <input type="text" name="content" id="content">
+      <input type="submit" value="Add task">                                              
+   </form>
+</div>  
+{% endblock %}
